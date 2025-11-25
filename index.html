@@ -59,6 +59,34 @@
                   <span>Team Leadership</span>
                   <span>Enterprise Consulting</span>
                </p>
+
+               <!-- AI Search Bar -->
+               <div class="ai-search-container">
+                  <div class="ai-search-bar">
+                     <div class="search-icon">
+                        <i class="fa fa-magic"></i>
+                     </div>
+                     <input
+                        type="text"
+                        id="ai-search-input"
+                        placeholder="Ask AI about my experience, skills, projects, or achievements..."
+                        autocomplete="off"
+                     />
+                     <button id="ai-search-btn" class="search-btn">
+                        <i class="fa fa-search"></i>
+                        <span>Ask AI</span>
+                     </button>
+                  </div>
+                  <div class="ai-suggestions">
+                     <span class="suggestion-label">Try asking:</span>
+                     <div class="suggestion-chips">
+                        <button class="suggestion-chip">What AI tools has Omar built?</button>
+                        <button class="suggestion-chip">Tell me about his leadership experience</button>
+                        <button class="suggestion-chip">What are his key achievements?</button>
+                     </div>
+                  </div>
+               </div>
+
                <a class="button stroke smoothscroll" href="#about" title="">Discover My Impact</a>
             </div>
          </div>
@@ -648,9 +676,48 @@
       <div id="loader"></div>
    </div>
 
+   <!-- AI Chat Interface -->
+   <div id="ai-chat-interface" class="chat-interface">
+      <div class="chat-header">
+         <div class="chat-header-content">
+            <div class="chat-avatar">🤖</div>
+            <div class="chat-header-text">
+               <h4>AI Assistant</h4>
+               <p>Ask me anything about Omar</p>
+            </div>
+         </div>
+         <button id="chat-close-btn" class="chat-close-btn">
+            <i class="fa fa-times"></i>
+         </button>
+      </div>
+      <div id="chat-messages" class="chat-messages">
+         <!-- Messages will be added here dynamically -->
+      </div>
+      <div class="chat-input-container">
+         <input
+            type="text"
+            id="chat-input"
+            placeholder="Type your question here..."
+            autocomplete="off"
+         />
+         <button id="chat-send-btn" class="chat-send-btn">
+            <i class="fa fa-paper-plane"></i>
+         </button>
+      </div>
+   </div>
+
+   <!-- Floating Contact Button -->
+   <div class="floating-contact-btn" id="floating-contact">
+      <a href="#contact" class="smoothscroll">
+         <i class="fa fa-envelope"></i>
+         <span class="contact-tooltip">Contact Me</span>
+      </a>
+   </div>
+
    <!-- JavaScript -->
    <script src="js/jquery-2.1.3.min.js"></script>
    <script src="js/plugins.js"></script>
    <script src="js/main.js"></script>
+   <script src="js/ai-assistant.js"></script>
 </body>
 </html>
