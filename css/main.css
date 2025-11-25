@@ -2598,4 +2598,276 @@ footer .copyright span:last-child::after {
 	background: #000000;
 }
 
+/**
+ * ===================================================================
+ * CUSTOM STYLES FOR MODERN REDESIGN - 2025
+ * ===================================================================
+ */
+
+/* Achievement Grid */
+.achievement-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 30px;
+	margin-top: 40px;
+	padding: 0 20px;
+}
+
+.achievement-item {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	padding: 40px 30px;
+	border-radius: 15px;
+	text-align: center;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-item:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.achievement-item:nth-child(1) {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.achievement-item:nth-child(2) {
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.achievement-item:nth-child(3) {
+	background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.achievement-item:nth-child(4) {
+	background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.achievement-item:nth-child(5) {
+	background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.achievement-item:nth-child(6) {
+	background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+}
+
+.achievement-number {
+	font-size: 5rem;
+	font-weight: 700;
+	color: #ffffff;
+	margin: 0;
+	line-height: 1;
+	font-family: "poppins-semibold", sans-serif;
+}
+
+.achievement-label {
+	font-size: 1.8rem;
+	color: #ffffff;
+	margin: 15px 0 5px;
+	font-weight: 600;
+	font-family: "poppins-medium", sans-serif;
+}
+
+.achievement-desc {
+	font-size: 1.4rem;
+	color: rgba(255, 255, 255, 0.9);
+	margin: 0;
+	font-family: "poppins-regular", sans-serif;
+}
+
+/* Skills Grid */
+.skills-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 40px;
+	margin-top: 50px;
+}
+
+.skill-category {
+	background: rgba(255, 255, 255, 0.05);
+	padding: 35px 30px;
+	border-radius: 10px;
+	border-left: 4px solid #DA1E37;
+	transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+	background: rgba(255, 255, 255, 0.08);
+	border-left-color: #667eea;
+	transform: translateX(5px);
+}
+
+.skill-category h3 {
+	color: #ffffff;
+	font-size: 2.2rem;
+	margin-bottom: 20px;
+	font-family: "poppins-semibold", sans-serif;
+}
+
+.skill-category h3 i {
+	color: #DA1E37;
+	margin-right: 10px;
+}
+
+.skill-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.skill-list li {
+	color: rgba(255, 255, 255, 0.8);
+	padding: 10px 0;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	font-size: 1.6rem;
+	font-family: "poppins-regular", sans-serif;
+}
+
+.skill-list li:last-child {
+	border-bottom: none;
+}
+
+.skill-list li:before {
+	content: "▸";
+	color: #DA1E37;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+/* Language Grid */
+.language-grid {
+	display: flex;
+	justify-content: center;
+	gap: 60px;
+	flex-wrap: wrap;
+}
+
+.language-item {
+	text-align: center;
+	padding: 30px 40px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	min-width: 150px;
+	transition: all 0.3s ease;
+}
+
+.language-item:hover {
+	background: rgba(255, 255, 255, 0.08);
+	transform: scale(1.05);
+}
+
+.language-item h4 {
+	color: #ffffff;
+	font-size: 2rem;
+	margin: 0 0 10px;
+	font-family: "poppins-semibold", sans-serif;
+}
+
+.language-item p {
+	color: #DA1E37;
+	font-size: 1.5rem;
+	margin: 0;
+	font-family: "poppins-regular", sans-serif;
+}
+
+/* Modern Updates to Existing Sections */
+#about h3,
+#experience h3,
+#skills h3 {
+	color: #ffffff;
+	font-family: "poppins-semibold", sans-serif;
+}
+
+.timeline-content h4 {
+	color: #DA1E37;
+	font-family: "poppins-semibold", sans-serif;
+}
+
+.timeline-content strong {
+	color: #ffffff;
+	font-family: "poppins-medium", sans-serif;
+}
+
+/* Enhanced Button Styles */
+.button-primary {
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	border: none;
+	transition: all 0.3s ease;
+}
+
+.button-primary:hover {
+	background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+	transform: translateY(-2px);
+	box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Responsive Design for Achievement Grid */
+@media only screen and (max-width: 768px) {
+	.achievement-grid {
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 20px;
+	}
+
+	.achievement-number {
+		font-size: 4rem;
+	}
+
+	.achievement-label {
+		font-size: 1.6rem;
+	}
+
+	.achievement-desc {
+		font-size: 1.3rem;
+	}
+}
+
+@media only screen and (max-width: 480px) {
+	.achievement-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.skills-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.language-grid {
+		gap: 30px;
+	}
+}
+
+/* Enhanced Stats Section */
+#stats {
+	background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+	padding: 90px 0;
+}
+
+/* Enhanced Skills Section Background */
+#skills {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)),
+	            url('../images/bg.jpg') center center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+/* Project Section Enhancements */
+.folio-title {
+	font-family: "poppins-semibold", sans-serif;
+	color: #ffffff;
+}
+
+.folio-types {
+	font-family: "poppins-regular", sans-serif;
+	color: rgba(255, 255, 255, 0.9);
+}
+
+/* Contact Section Enhancement */
+#contact .section-intro h1 {
+	color: #ffffff;
+}
+
+#contact .icon i {
+	color: #DA1E37;
+}
+
 /*# sourceMappingURL=main.css.map */
