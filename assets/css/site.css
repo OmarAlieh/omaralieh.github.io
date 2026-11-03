@@ -290,7 +290,6 @@ mark { color: inherit; padding: 0 0.12em; box-decoration-break: clone; -webkit-b
   padding: 32px var(--margin); font-size: 0.9375rem; color: var(--muted);
 }
 
-.portrait { margin-left: auto; width: clamp(64px, 8vw, 120px); height: clamp(64px, 8vw, 120px); border-radius: 50%; object-fit: cover; object-position: 55% 30%; align-self: center; }
 
 /* ---------- Answer dialog ---------- */
 .answer {
