@@ -7,6 +7,17 @@
   var EMAIL = 'aliehomar9@hotmail.com';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- anchor smooth scroll (only on click, never globally) ---------- */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href') === '#') return;
+    var t = document.getElementById(a.getAttribute('href').slice(1));
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    if (history.pushState) history.pushState(null, '', a.getAttribute('href'));
+  });
+
   /* ---------- Reveal on scroll ---------- */
   var reveals = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window && !reduce) {
@@ -25,23 +36,42 @@
   var preview = document.getElementById('preview');
   if (ledger && preview) {
     var rows = ledger.querySelectorAll('.row');
+    var panels = [];
+    rows.forEach(function (r) {
+      var memo = r.parentNode.querySelector('.memo');
+      var panel = document.createElement('div');
+      panel.className = 'panel';
+      panel.hidden = true;
+      panel.innerHTML = memo.innerHTML;
+      preview.appendChild(panel);
+      panels.push(panel);
+    });
     var current = -1;
     var show = function (i) {
       if (i === current) return;
       current = i;
       rows.forEach(function (r, k) { r.classList.toggle('on', k === i); });
-      var memo = rows[i].parentNode.querySelector('.memo');
-      preview.classList.add('swap');
-      window.setTimeout(function () {
-        preview.innerHTML = memo.innerHTML.replace(/^<strong>(.*?)<\/strong>\s*/, '<strong>$1</strong>');
-        preview.classList.remove('swap');
-      }, reduce ? 0 : 120);
+      panels.forEach(function (p, k) {
+        p.hidden = k !== i;
+        if (k === i && !reduce) { p.classList.remove('in'); void p.offsetWidth; p.classList.add('in'); }
+      });
     };
     rows.forEach(function (r, i) {
       r.addEventListener('mouseenter', function () { show(i); });
       r.addEventListener('focus', function () { show(i); });
     });
     show(0);
+  }
+
+  /* ---------- Dubai local time ---------- */
+  var tEl = document.getElementById('dubai-time');
+  if (tEl && window.Intl) {
+    var tick = function () {
+      var d = new Date();
+      tEl.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Dubai' }).format(d) + ' GST';
+      tEl.setAttribute('datetime', d.toISOString());
+    };
+    tick(); window.setInterval(tick, 30000);
   }
 
   /* ---------- Q&A ---------- */
@@ -126,12 +156,14 @@
     thread.scrollTop = thread.scrollHeight;
   }
 
-  function ask(q) {
+  function ask(q, topic) {
     q = (q || '').trim();
     if (!q) return;
     if (!dlg.open) dlg.showModal();
     add('you', [q]);
-    var r = answerFor(q);
+    var r = null;
+    if (topic) KB.forEach(function (item) { if (!r && item.k.indexOf(topic) !== -1) r = item; });
+    r = r || answerFor(q);
     add('bot', r.a, { go: r.go, q: r.miss ? q : '' });
     aInput.value = '';
     aInput.focus();
@@ -149,5 +181,37 @@
     c.addEventListener('click', function () { ask(c.getAttribute('data-q')); });
   });
   closeBtn.addEventListener('click', function () { dlg.close(); });
+
+  // "Ask about this" buttons (experience previews) and the sticky pill
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.ask-this');
+    if (b) ask(b.getAttribute('data-q'), b.getAttribute('data-topic'));
+  });
+  var pill = document.getElementById('float-ask');
+  if (pill) {
+    var hero = document.querySelector('.hero');
+    // The pill stays out of the way: hidden on the hero, on sections that carry their own
+    // "Ask about this" buttons or contact details, and while the dialog is open.
+    var zones = ['#work', '.built', '#contact', '.foot'].map(function (s) { return document.querySelector(s); }).filter(Boolean);
+    var inZone = {};
+    var update = function () {
+      var past = hero && hero.getBoundingClientRect().bottom < 0;
+      var blocked = false;
+      Object.keys(inZone).forEach(function (k) { if (inZone[k]) blocked = true; });
+      var want = past && !blocked && !dlg.open;
+      if (want && pill.hidden) { pill.hidden = false; pill.classList.add('pre'); requestAnimationFrame(function () { pill.classList.remove('pre'); }); }
+      else if (!want && !pill.hidden) { pill.hidden = true; }
+    };
+    if ('IntersectionObserver' in window) {
+      var zio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { inZone[e.target.className + e.target.id] = e.isIntersecting; });
+        update();
+      }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
+      zones.forEach(function (z) { zio.observe(z); });
+    }
+    window.addEventListener('scroll', update, { passive: true }); update();
+    dlg.addEventListener('close', update);
+    pill.addEventListener('click', function () { if (!dlg.open) dlg.showModal(); aInput.focus(); });
+  }
   dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
 })();
